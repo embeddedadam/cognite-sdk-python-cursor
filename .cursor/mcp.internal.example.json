@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "internal-docs-example": {
+      "url": "https://mcp.example.internal/docs",
+      "headers": {
+        "Authorization": "Bearer ${env:INTERNAL_DOCS_TOKEN}"
+      }
+    },
+    "internal-ci-example": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@example/internal-ci-mcp"
+      ],
+      "env": {
+        "INTERNAL_CI_TOKEN": "${env:INTERNAL_CI_TOKEN}"
+      }
+    }
+  }
+}

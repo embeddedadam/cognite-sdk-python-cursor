@@ -1,0 +1,7 @@
+{
+  "name": "cognite-sdk-python-cursor",
+  "interface": {
+    "displayName": "Cognite SDK Cursor Plugins"
+  },
+  "plugins": []
+}

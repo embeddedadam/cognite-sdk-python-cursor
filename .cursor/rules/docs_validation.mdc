@@ -1,0 +1,43 @@
+---
+alwaysApply: false
+---
+
+Use this rule only when the task materially changes documentation, install guidance, doc examples, packaging metadata, dependencies, extras, or import-path behavior. Do not use it for ordinary Python feature work.
+
+Validation workflow:
+
+- For `docs/source/**` changes, run:
+  - `pre-commit run --all-files`
+  - `pytest docs`
+  - `cd docs && make html`
+
+- For docstring example changes in Python modules, run:
+  - `pre-commit run --all-files`
+  - `pytest tests/tests_unit/test_docstring_examples.py`
+  - the smallest relevant unit coverage for the behavior or examples affected by the change
+  - If examples were added to a new public module, update the explicit allowlist in `tests/tests_unit/test_docstring_examples.py`
+
+- For packaging, extras, dependency, import-path, or install-flow changes, run:
+  - `pre-commit run --all-files`
+  - `poetry build`
+  - `pytest tests/tests_unit/test_utils/test_importing.py --test-deps-only-core` when imports, optional dependencies, extras, or minimal-dependency behavior changed
+
+Repo-specific guidance:
+
+- Docs are page-based under `docs/source/`, not generated from a single `cognite.rst` page.
+- If you add a new docs page or a new toctree entry, update `docs/source/index.rst`.
+- Keep install and extras guidance aligned across:
+  - `pyproject.toml`
+  - `README.md`
+  - `docs/source/index.rst`
+  - `docs/source/extensions_and_optional_dependencies.rst`
+- For public behavior changes that affect user-facing docs, update the relevant docs page, not only docstrings.
+- Do not rely on `scripts/agent_checks.py` in this workflow. `AGENTS.md` mentions it, but that file is not present in this repo.
+
+Scoping and caution:
+
+- If `README.md` or `CONTRIBUTING.md` changes are prose-only and do not affect install, setup, dependencies, or extras, skip packaging checks and say so explicitly.
+- Run the smallest relevant checks for the touched surface.
+- Do not skip `pytest docs` and `cd docs && make html` for `docs/source/**` changes when this rule applies.
+- Do not skip `poetry build` for packaging, extras, dependency, import-path, or install-flow changes when this rule applies.
+- Final responses must report commands run, checks skipped with reasons, and whether autofix changed files.
