@@ -1,0 +1,33 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "${env:HOME}/.local/bin/cursor-npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://api.githubcopilot.com/mcp",
+        "--header",
+        "Authorization:${GITHUB_AUTH_HEADER}",
+        "--header",
+        "X-MCP-Toolsets:repos,issues,pull_requests,actions,github_support_docs_search",
+        "--silent"
+      ],
+      "envFile": "${workspaceFolder}/.env"
+    },
+    "perplexity": {
+      "command": "${env:HOME}/.local/bin/cursor-npx",
+      "args": [
+        "-y",
+        "@perplexity-ai/mcp-server"
+      ],
+      "envFile": "${workspaceFolder}/.env"
+    },
+    "sequential-thinking": {
+      "command": "${env:HOME}/.local/bin/cursor-npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    }
+  }
+}

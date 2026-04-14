@@ -59,6 +59,8 @@ playground.py
 scripts/tmp/
 my_file.txt
 .venv/
+.cache/
 *.env
 .envrc
 .ropeproject
+.cursor/hooks/state/
